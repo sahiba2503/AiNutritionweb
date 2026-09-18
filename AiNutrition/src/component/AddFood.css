@@ -1,0 +1,169 @@
+.page{
+  width: 70%;
+  width: 90%;
+  padding: 2%;
+  overflow: auto;
+}
+.add-food-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.add-food-card {
+  background-color: #e1f5ee;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.photo-card {
+  background-color: #ffffff;
+  border: 0.0625rem dashed #b4b2a9;
+}
+
+.card-heading {
+  font-weight: bold;
+  color: #04342c;
+  margin-bottom: 1rem;
+}
+
+.input-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #5f5e5a;
+  margin-bottom: 0.4rem;
+}
+
+.add-food-card input {
+  width: 100%;
+  padding: 0.7rem;
+  border: 0.0625rem solid #d3d1c7;
+  border-radius: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.primary-btn {
+  width: 100%;
+  background-color: #1c5c46;
+  color: #ffffff;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 0.4rem;
+}
+
+.primary-btn:hover {
+  background-color: #144a38;
+}
+
+.primary-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-text {
+  color: #a32d2d;
+  font-size: 0.85rem;
+  margin-top: 0.6rem;
+}
+
+.upload-box {
+  text-align: center;
+  padding: 8% 0;
+  color: #5f5e5a;
+  margin-bottom: 1rem;
+}
+
+.upload-icon {
+  font-size: 1.6rem;
+}
+
+.upload-sub {
+  font-size: 0.8rem;
+  color: #888780;
+}
+
+.nutrition-result {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 0.0625rem solid #e0e0da;
+}
+
+.result-heading {
+  background-color: #e1f5ee;
+  color: #04342c;
+  font-weight: bold;
+  padding: 0.8rem 1.2rem;
+}
+
+.result-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.result-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.6rem;
+  background-color: #f0997b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.result-name {
+  flex: 1;
+  min-width: 10rem;
+}
+
+.result-food-name {
+  font-weight: bold;
+}
+
+.result-food-name span {
+  font-weight: normal;
+  color: #888780;
+  font-size: 0.8rem;
+}
+
+.result-date {
+  font-size: 0.8rem;
+  color: #888780;
+}
+
+.result-stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.result-stats > div {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+}
+
+.stat-key {
+  color: #888780;
+}
+
+.stat-val {
+  font-weight: bold;
+}
+
+/* ===== Tablet & Mobile ===== */
+@media (max-width: 48rem) {
+  .add-food-grid {
+    grid-template-columns: 1fr;
+  }
+  .page {
+    padding-top: 3rem;
+  }
+  .result-stats {
+    gap: 1rem;
+  }
+}

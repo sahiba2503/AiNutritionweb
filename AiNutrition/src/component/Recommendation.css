@@ -1,0 +1,94 @@
+.page{
+  width: 70%;
+  height: 100%;
+  padding: 2%;
+  overflow: auto;
+}
+.filter-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.filter-chip {
+  border: 0.0625rem solid #d3d1c7;
+  background-color: #ffffff;
+  color: #5f5e5a;
+  padding: 0.6rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+}
+
+.filter-chip-active {
+  background-color: #1c5c46;
+  color: #ffffff;
+  border-color: #1c5c46;
+}
+
+.food-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.food-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 0.0625rem solid #e0e0da;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+
+.food-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.food-info {
+  flex: 1;
+  min-width: 10rem;
+}
+
+.food-name {
+  font-weight: bold;
+  color: #2c2c2a;
+}
+
+.food-desc {
+  font-size: 0.8rem;
+  color: #888780;
+}
+
+.outline-btn {
+  border: 0.0625rem solid #1c5c46;
+  color: #0f6e56;
+  background: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.outline-btn:hover {
+  background-color: #e1f5ee;
+}
+
+@media (max-width: 48rem) {
+  .page {
+    padding-top: 3rem;
+  }
+  .food-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .outline-btn {
+    width: 100%;
+  }
+}

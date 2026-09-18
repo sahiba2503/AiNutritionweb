@@ -1,0 +1,247 @@
+.auth-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.auth-brand-panel {
+  width: 40%;
+  height: 100vh;
+  background-color: #0b3d2e;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5%;
+}
+
+.auth-logo {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.auth-brand-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+}
+
+.auth-brand-text {
+  font-size: 0.9rem;
+  color: #c8e6d8;
+  max-width: 18rem;
+}
+
+.auth-form-panel {
+  width: 60%;
+  height: 100vh;
+  overflow:hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5%;
+}
+
+.auth-form {
+  width: 100%;
+  max-width: 24rem;
+}
+
+.auth-heading {
+  font-size: 1.4rem;
+  color: #0b3d2e;
+  margin-bottom: 0.4rem;
+}
+
+.auth-subheading {
+  color: #5f5e5a;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #5f5e5a;
+  margin-bottom: 0.3rem;
+}
+
+.auth-form input, .small-card input {
+  width: 100%;
+  padding: 0.7rem;
+  border: 0.0625rem solid #d3d1c7;
+  border-radius: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.auth-row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #5f5e5a;
+}
+
+.checkbox-label input {
+  width: auto;
+  margin: 0;
+}
+
+.link-text {
+  color: #0f6e56;
+  font-weight: bold;
+}
+
+.primary-btn {
+  width: 100%;
+  background-color: #1c5c46;
+  color: #ffffff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.primary-btn:hover {
+  background-color: #144a38;
+}
+
+.primary-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-footer-text {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #5f5e5a;
+}
+
+.error-text {
+  color: #a32d2d;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.success-text {
+  color: #0f6e56;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+/* Centered card layout - used by Forgot Password and Logout confirm */
+.centered-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5%;
+}
+
+.small-card {
+  width: 100%;
+  max-width: 26rem;
+  background-color: #ffffff;
+  border: 0.0625rem solid #e0e0da;
+  border-radius: 0.75rem;
+  padding: 2rem;
+}
+
+.small-card-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.6rem;
+  background-color: #e1f5ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Logout confirmation page */
+.logout-card {
+  text-align: center;
+}
+
+.logout-icon {
+  background-color: #fbeaea;
+  margin: 0 auto 1rem;
+}
+
+.logout-btn-row {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.secondary-btn {
+  flex: 1;
+  background-color: #ffffff;
+  color: #2c2c2a;
+  border: 0.0625rem solid #d3d1c7;
+  padding: 0.7rem;
+  border-radius: 0.4rem;
+}
+
+.secondary-btn:hover {
+  background-color: #f4f3f0;
+}
+
+.danger-btn {
+  flex: 1;
+  background-color: #a32d2d;
+  color: #ffffff;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 0.4rem;
+}
+
+.danger-btn:hover {
+  background-color: #832222;
+}
+
+/* ===== Tablet ===== */
+@media (max-width: 64rem) {
+  .auth-brand-panel {
+    height: 45vh;
+    width: 35%;
+  }
+  .auth-form-panel {
+    width: 65%;
+  }
+}
+
+/* ===== Mobile: brand panel stacks on top, form scrolls below ===== */
+@media (max-width: 48rem) {
+  .auth-wrapper {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .auth-brand-panel {
+    width: 100%;
+    height: 45vh;
+    padding: 6% 5%;
+  }
+  .auth-form-panel {
+    width: 100%;
+    height: 65%;
+  }
+}

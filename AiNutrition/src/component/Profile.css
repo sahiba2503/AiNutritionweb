@@ -1,0 +1,87 @@
+.page{
+  width: 70%;
+  height: 100%;
+  padding:2%;
+  overflow: auto;
+}
+.profile-hero {
+  background-color: #e1f5ee;
+  border-radius: 0.75rem;
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-avatar {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background-color: #1c5c46;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.profile-name {
+  font-weight: bold;
+  color: #04342c;
+}
+
+.profile-tagline {
+  font-size: 0.85rem;
+  color: #0f6e56;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.section-heading {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #2c2c2a;
+  margin: 1.2rem 0 0.6rem;
+}
+
+.outline-btn {
+  border: 0.0625rem solid #1c5c46;
+  color: #0f6e56;
+  background: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.info-list, .settings-list {
+  border-top: 0.0625rem solid #e0e0da;
+}
+
+.info-row, .settings-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem 0;
+  border-bottom: 0.0625rem solid #e0e0da;
+  font-size: 0.9rem;
+}
+
+.info-row span:first-child {
+  color: #888780;
+}
+
+@media (max-width: 48rem) {
+  .page {
+    padding-top: 3rem;
+  }
+  .profile-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

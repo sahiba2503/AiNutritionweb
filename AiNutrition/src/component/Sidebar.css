@@ -1,0 +1,209 @@
+
+.sidnaveOuterContainer {
+   color:#ffffff;
+  width: 30%;
+  height: 100%;
+  overflow: auto;
+  
+}
+
+.dyp-side {
+  height: 100vh;
+  background-color: #0b3d2e;
+  padding: 20px 10px;
+}
+
+.dyp-side ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.asideListItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.asideListItem:hover {
+  background-color: #0b3d2e;
+}
+
+.asideListItem span {
+  font-size: 20px;
+}
+
+.asideListItem p {
+  margin: 0;
+  font-size: 15px;
+}
+
+
+/* Arrow hidden on big screen */
+
+.sidebarOpenBtn {
+  display: none;
+}
+
+
+/* 
+   1000px
+ */
+
+@media (max-width: 1000px) {
+
+  .about-hero h1 {
+    font-size: 40px;
+  }
+
+  .about-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+/* 
+   850px
+ */
+
+@media (max-width: 850px) {
+
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-description {
+    margin: auto;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+
+}
+
+
+/* 
+   750px
+ */
+
+@media (max-width: 750px) {
+
+  .about-hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 60px 6%;
+  }
+
+  .about-hero-image {
+    width: 280px;
+    height: 280px;
+  }
+
+  .food-circle {
+    width: 240px;
+    height: 240px;
+    font-size: 100px;
+  }
+
+  .about-section,
+  .features-section,
+  .how-section,
+  .mission-section {
+    padding: 60px 6%;
+  }
+
+}
+
+
+/* 
+   SIDEBAR - 700px
+ */
+
+@media (max-width: 700px) {
+
+  .sidnaveOuterContainer {
+    width: 0;
+  }
+
+  .sidebarOpenBtn {
+    display: block;
+    position: fixed;
+    top: 20px;
+    left: 10px;
+    z-index: 1001;
+
+    font-size: 22px;
+    padding: 8px 12px;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: #0b3d2e;
+    color: white;
+
+    cursor: pointer;
+  }
+
+  .dyp-side {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 50%;
+    height: 100vh;
+   
+
+
+    z-index: 1000;
+
+    transform: translateX(-100%);
+    transition: 0.3s;
+  }
+
+  .dyp-side.showSidebar {
+    transform: translateX(0);
+  }
+
+  .asideListItem p {
+    font-size: 13px;
+  }
+
+  .asideListItem span {
+    font-size: 18px;
+  }
+
+  .dyp-nav__links {
+    display: none;
+  }
+
+  .dyp-nav__toggle {
+    display: block;
+  }
+
+  .dyp-tiles {
+    grid-template-columns: 1fr;
+  }
+
+  .dyp-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+}
+
+

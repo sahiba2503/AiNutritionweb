@@ -27,7 +27,7 @@ function AddFood() {
             onChange={(e) => setFoodName(e.target.value)}
           />
           <button className="primary-btn"  >
-           
+           Add food
           </button>
 
         </div>

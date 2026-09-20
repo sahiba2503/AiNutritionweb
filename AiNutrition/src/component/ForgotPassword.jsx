@@ -242,7 +242,7 @@ function ForgotPassword() {
           {error && <p>{error}</p>}
         </form>
 
-        <p onClick={()=>navigate("/login")} className="link-text back-link">← Back to log in</p>
+        <p onClick={()=>navigate("/")} className="link-text back-link">← Back to log in</p>
       </div>
     </div>
   );

@@ -28,9 +28,6 @@
   cursor: pointer;
 }
 
-.asideListItem:hover {
-  background-color: #0b3d2e;
-}
 
 .asideListItem span {
   font-size: 20px;
@@ -40,7 +37,9 @@
   margin: 0;
   font-size: 15px;
 }
-
+.asideListItem:hover{
+background-color: #6ec9ad;
+}
 
 /* Arrow hidden on big screen */
 

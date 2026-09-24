@@ -89,7 +89,7 @@ function AddFood() {
 
           <input
             type="text"
-            placeholder="e.g. apple, chicken, rice"
+            placeholder="e.g.apple,banana,egg,cofee,tea,juice,water"
             value={foodName}
             onChange={(e) => setFoodName(e.target.value)}
           />

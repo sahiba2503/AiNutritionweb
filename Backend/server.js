@@ -3,11 +3,6 @@ const express = require("express");
 const cors = require("cors");
 const { z } = require("zod");
 
-const foodSchema = z.object({
-  food: z.string().min(1, "Food is required"),
-});
-//min(1,"food is require")//it should not be empty at least one character present.
-
 const app = express();
 
 app.use(express.json());
@@ -32,76 +27,146 @@ let users = {
   password: "",
 };
 
-app.post("/createAccount", (req, res) => {
-  if (req.body.name && req.body.email && req.body.password) {
-    //object destructuring
-    const { name, email, password } = req.body;
-    if (!users.name || !users.email || !users.password) {
-      users.name = name;
-      users.email = email;
-      users.password = password;
+const foodSchema = z.object({
+  food: z.string().min(1, "Food is required"),
+});
 
-      res.json({
-        success: true,
-        message: "Account created successfully",
-      });
-    }
-    if (
-      users.name === name ||
-      users.email === email ||
-      users.password === password
-    ) {
-      res.json({
-        success: false,
-        message: " user's account's detail is dublicate ",
-      });
-    } else {
-      res.json({
-        success: false,
-        message: "we have already account ,",
-      });
-    }
-  } else {
-    res.json({
+const loginSchema = z.object({
+  email: z.string().min(1, "Email is required"),
+  password: z.string().min(1, "Password is required"),
+});
+
+const createAccountSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Name is required")
+    .regex(/^[A-Za-z ]+$/, "Name can contain only letters and spaces"),
+
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .includes("@gmail.com", "Email must contain @gmail.com"),
+
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .max(12, "Password must not be more than 12 characters")
+    .regex(/[A-Z]/, "Password must contain one capital letter")
+    .regex(/[a-z]/, "Password must contain one small letter")
+    .regex(/[0-9]/, "Password must contain one number")
+    .regex(/[^A-Za-z0-9]/, "Password must contain one special character"),
+});
+//min(1,"food is require")//it should not be empty at least one character present.
+
+app.post("/createAccount", (req, res) => {
+  const result = createAccountSchema.safeParse(req.body);
+
+  if (!result.success) {
+    return res.json({
       success: false,
-      message: "server does not get name ,email and password successfully",
+      message: result.error.issues[0].message,
     });
   }
+
+  const { name, email, password } = result.data;
+
+  if (!users.name || !users.email || !users.password) {
+    users.name = name;
+    users.email = email;
+    users.password = password;
+
+    return res.json({
+      success: true,
+      message: "Account created successfully",
+    });
+  }
+
+  if (users.name === name || users.email === email) {
+    return res.json({
+      success: false,
+      message: "User's account details are duplicate",
+    });
+  }
+
+  return res.json({
+    success: false,
+    message: "We already have an account",
+  });
 });
 
 app.post("/loginAccount", (req, res) => {
-  //data come in string .
-  if (req.body.email && req.body.password) {
-    const { email, password } = req.body;
-    if (email === users.email && password === users.password) {
-      res.json({
-        success: true,
-        message: "you loged in successfully",
-      });
-    } else if (email === users.email && password !== users.password) {
-      res.json({
-        success: false,
-        message: "enter correct password",
-      });
-    } else if (email !== users.email && password === users.email) {
-      res.json({
-        success: false,
-        message: "enter correct email",
-      });
-    } else {
-      res.json({
-        success: false,
-        message:
-          "server could not match. plese enter correct email and password",
-      });
-    }
+  const result = loginSchema.safeParse(req.body);
+
+  if (!result.success) {
+    return res.json({
+      success: false,
+      message: "Email and password are required",
+    });
+  }
+
+  const { email, password } = result.data;
+
+  if (email === users.email && password === users.password) {
+    res.json({
+      success: true,
+      message: "You logged in successfully",
+    });
+  } else if (email === users.email && password !== users.password) {
+    res.json({
+      success: false,
+      message: "Enter correct password",
+    });
+  } else if (email !== users.email && password === users.password) {
+    res.json({
+      success: false,
+      message: "Enter correct email",
+    });
   } else {
     res.json({
       success: false,
-      message: "server did not get emil and password ",
+      message:
+        "Server could not match. Please enter correct email and password",
     });
   }
 });
+//
+
+app.post("/loginAccount", (req, res) => {
+  const result = loginSchema.safeParse(req.body);
+
+  if (!result.success) {
+    return res.json({
+      success: false,
+      message: "Email and password are required",
+    });
+  }
+
+  const { email, password } = result.data;
+
+  if (email === users.email && password === users.password) {
+    res.json({
+      success: true,
+      message: "You logged in successfully",
+    });
+  } else if (email === users.email && password !== users.password) {
+    res.json({
+      success: false,
+      message: "Enter correct password",
+    });
+  } else if (email !== users.email && password === users.password) {
+    res.json({
+      success: false,
+      message: "Enter correct email",
+    });
+  } else {
+    res.json({
+      success: false,
+      message:
+        "Server could not match. Please enter correct email and password",
+    });
+  }
+});
+//
 
 app.post("/changePass", (req, res) => {
   const { email, password } = req.body;
@@ -159,42 +224,17 @@ app.get("/usersName", (req, res) => {
   }
 });
 
-// app.post("/foodNutritions", (req, res) => {
-//   let Food = req.body.food;
-//   if (Food) {
-//     let foodNut = foodData.find((value) => {
-//       return value.name === Food;
-//     });
-//     if (foodNut) {
-//       res.json({
-//         success: true,
-//         calorie: foodNut.calorie,
-//         protein: foodNut.protein,
-//         vitamin: foodNut.vitamin
-//       });
-//     } else {
-//       res.json({
-//         success: false
-//       });
-//     }
-//   } else {
-//     res.json({
-//       success: false
-//     });
-//   }
-// });
 app.post("/foodNutritions", (req, res) => {
-  let result = foodSchema.safeParse(req.body);
   //“safeParse-Is data ko safely check karo aur batao ki data correct hai ya nahi.”
+  let result = foodSchema.safeParse(req.body);
 
-//zod can be return like this data
-//{
+  //zod can be return like this data
+  //{
   //success: true,
   //data: {
-    //food: "Apple"
+  //food: "Apple"
   //}
-//}
-//
+  //}
 
   //success Zod automatically gives it to you when you use safeParse(). You do not create success yourself.
   if (!result.success) {

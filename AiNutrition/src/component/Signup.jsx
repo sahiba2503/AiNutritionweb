@@ -206,3 +206,20 @@ export default Signup;
 
 
 //
+//zod give us issues is an array object of errors if exist.
+//Name → empty ,Email → wrong ,Password → too short ,Zod may give you 3 errors.
+// result.error.issues[
+//   {
+//     path: ["name"],
+//     message: "Name is required"
+//   },
+//   {
+//     path: ["email"],
+//     message: "Invalid email"
+//   },
+//   {
+//     path: ["password"],
+//     message: "Password is too short"
+//   }
+// ]
+//

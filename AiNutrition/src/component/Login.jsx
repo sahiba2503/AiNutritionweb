@@ -1,6 +1,28 @@
 import { useState } from "react";
 import "./Auth.css";
 import { useNavigate } from "react-router-dom";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .email("Please enter a valid email")
+    .refine(
+      (value) => value.endsWith("@gmail.com"),
+      "Please enter a valid Gmail address",
+    ),
+
+  password: z
+    .string()
+    .min(8, "Password must be 8 to 12 characters")
+    .max(12, "Password must be 8 to 12 characters")
+    .regex(/[A-Z]/, "Password must contain one capital letter")
+    .regex(/[a-z]/, "Password must contain one small letter")
+    .regex(/[0-9]/, "Password must contain one number")
+    .regex(/[^A-Za-z0-9]/, "Password must contain one special character")
+    .regex(/^\S+$/, "Password should not contain space"),
+});
 
 function Login() {
   const navigate = useNavigate();
@@ -14,146 +36,7 @@ function Login() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  function checkEmail() {
-    let parts = email.trim().split("@");
-
-    //if the array does not have exactly 2 parts.”
-    if (parts.length !== 2) {
-      setEmailError("Please enter a valid email");
-      return false;
-    }
-
-    let username = parts[0];
-    let domain = parts[1];
-
-    if (username.length < 3) {
-      setEmailError("Email username should be at least 3 characters");
-      return false;
-    }
-    // whether the username contains any special character.
-    if (
-      username.includes("@") ||
-      username.includes("#") ||
-      username.includes("$") ||
-      username.includes("%") ||
-      username.includes("!") ||
-      username.includes("&") ||
-      username.includes("?") ||
-      username.includes("+") ||
-      username.includes("-") ||
-      username.includes("..") ||
-      username.includes("_") ||
-      username.includes(":") ||
-      username.includes(";") ||
-      username.includes("^") ||
-      username.includes("/") ||
-      username.includes(" ") ||
-      username.includes(",") ||
-      username.includes("'") ||
-      username.includes("(") ||
-      username.includes(")") ||
-      username.includes("{") ||
-      username.includes("}") ||
-      username.includes("[") ||
-      username.includes(">") ||
-      username.includes("<") ||
-      username.includes("]") ||
-      username.includes("|") ||
-      username.includes("`") ||
-      username.includes("~")
-    ) {
-      setEmailError("Email contains invalid character or space");
-      return false;
-    }
-    // if the domain is not gmail.com.
-    if (domain !== "gmail.com") {
-      setEmailError("Please enter a valid Gmail address");
-      return false;
-    }
-
-    setEmailError("");
-    return true;
-  }
-
-  function checkPassword() {
-    let userPassword = password.trim();
-    if (userPassword.length < 8 || userPassword.length > 12) {
-      setPasswordError("user's Password must be 8 to 12 characters");
-      return false;
-    }
-
-    if (userPassword === userPassword.toLowerCase()) {
-      setPasswordError("user's Password must contain one capital letter");
-      return false;
-    }
-
-    if (userPassword === userPassword.toUpperCase()) {
-      setPasswordError("user's Password must contain one small letter");
-      return false;
-    }
-    if (userPassword.includes(" ")) {
-      setPasswordError("user's Password should not contain space");
-      return false;
-    }
-
-    if (
-      !(
-        userPassword.includes("!") ||
-        userPassword.includes("@") ||
-        userPassword.includes("#") ||
-        userPassword.includes("$") ||
-        userPassword.includes("%") ||
-        userPassword.includes("^") ||
-        userPassword.includes("&") ||
-        userPassword.includes("*") ||
-        userPassword.includes("(") ||
-        userPassword.includes(")") ||
-        userPassword.includes(">") ||
-        userPassword.includes("+") ||
-        userPassword.includes("{") ||
-        userPassword.includes("}") ||
-        userPassword.includes("[") ||
-        userPassword.includes("]") ||
-        userPassword.includes("|") ||
-        userPassword.includes("'") ||
-        userPassword.includes(";") ||
-        userPassword.includes(":") ||
-        userPassword.includes("/") ||
-        userPassword.includes("?") ||
-        userPassword.includes(">") ||
-        userPassword.includes("<") ||
-        userPassword.includes(".") ||
-        userPassword.includes("`") ||
-        userPassword.includes("~") ||
-        userPassword.includes(",")
-      )
-    ) {
-      setPasswordError("userPassword must contain one special character");
-      return false;
-    }
-
-    if (
-      !(
-        userPassword.includes("0") ||
-        userPassword.includes("1") ||
-        userPassword.includes("2") ||
-        userPassword.includes("3") ||
-        userPassword.includes("4") ||
-        userPassword.includes("5") ||
-        userPassword.includes("6") ||
-        userPassword.includes("7") ||
-        userPassword.includes("8") ||
-        userPassword.includes("9")
-      )
-    ) {
-      setPasswordError("Password must contain one number");
-      return false;
-    }
-
-    setPasswordError("");
-    return true;
-  }
-
+  
   function handleLogin(event) {
     event.preventDefault();
 
@@ -165,22 +48,23 @@ function Login() {
     setEmailError("");
     setPasswordError("");
 
-    if (!email.trim() || !password) {
-      setError("Please enter email and password.");
-      return;
-    }
-    // checkEmail() check the email format.
-    let emailValid = checkEmail();
+    
+    const result =loginSchema .safeParse({
+      email: email,
+      password: password,
+    });
 
-    if (!emailValid) {
-      setEmailError("please enter correct email.");
-      return;
-    }
-    // checkPassword() checks password is valid.
-    let passwordValid = checkPassword();
+    if(!result.success){
+       result.error.issues.forEach((issue) => {
+          if (issue.path[0] === "email") {
+          setEmailError(issue.message);
+        }
 
-    if (!passwordValid) {
-      setPasswordError("please enter correct password");
+        if (issue.path[0] === "password") {
+          setPasswordError(issue.message);
+        }
+      });
+
       return;
     }
     //if email and password are valid,
@@ -212,10 +96,7 @@ function Login() {
         alert(" Something wrong please try again");
       })
       .finally(() => {
-        setLoading(false);
-        setError("");
-        setEmailError("");
-        setPasswordError("");
+         setLoading(false);
       });
   }
 
@@ -244,9 +125,9 @@ function Login() {
             onChange={(event) => setEmail(event.target.value)}
             disabled={loading}
           />
-          
+
           {emailError ? emailError : ""}
-         
+
           <label className='input-label'>Password</label>
           <input
             type='password'
@@ -268,7 +149,13 @@ function Login() {
             {loading ? "Logging in..." : "Login"}
           </button>
           {error ? error : ""}
-           <p onClick={()=>{navigate("/ForgotPassword")}}>Forget password</p>
+          <p
+            onClick={() => {
+              navigate("/ForgotPassword");
+            }}
+          >
+            Forget password
+          </p>
           <p className='auth-footer-text'>
             Don't have an account?{" "}
             <p
@@ -280,7 +167,6 @@ function Login() {
               Sign Up
             </p>
           </p>
-
         </form>
       </div>
     </div>
@@ -288,3 +174,14 @@ function Login() {
 }
 
 export default Login;
+//
+//  result={
+//   success: false,
+//   error: ZodError: [
+//     {code: "invalid_format",format: "email", path: ["email"],message: "Invalid email address" },
+//     {code: "too_small",minimum: 6,path: ["password"],message: "Password must be at least 6 characters"}
+//   ]
+// }
+//issues = [ {code: "invalid_format",format: "email", path: ["email"],message: "Invalid email address" },
+//     {code: "too_small",minimum: 6,path: ["password"],message: "Password must be at least 6 characters"}
+//   ]

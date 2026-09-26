@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
@@ -17,7 +16,7 @@ const signupSchema = z.object({
     .email("Please enter a valid email")
     .refine(
       (value) => value.endsWith("@gmail.com"),
-      "Please enter a valid Gmail address"
+      "Please enter a valid Gmail address",
     ),
 
   password: z
@@ -113,37 +112,30 @@ function Signup() {
   }
 
   return (
-    <div className="auth-wrapper">
-      <div className="auth-brand-panel">
-        <div className="auth-logo">🌿</div>
+    <div className='auth-wrapper'>
+      <div className='auth-brand-panel'>
+        <div className='auth-logo'>🌿</div>
 
-        <p className="auth-brand-title">
-          NutriTrack
-        </p>
+        <p className='auth-brand-title'>NutriTrack</p>
 
-        <p className="auth-brand-text">
+        <p className='auth-brand-text'>
           Join thousands making smarter food choices every day.
         </p>
       </div>
 
-      <div className="auth-form-panel">
-        <form className="auth-form" onSubmit={handleSignup}>
+      <div className='auth-form-panel'>
+        <form className='auth-form' onSubmit={handleSignup}>
+          <p className='auth-heading'>Create your account</p>
 
-          <p className="auth-heading">
-            Create your account
-          </p>
-
-          <p className="auth-subheading">
+          <p className='auth-subheading'>
             Start your journey to better eating habits.
           </p>
 
-          <label className="input-label">
-            Full Name
-          </label>
+          <label className='input-label'>Full Name</label>
 
           <input
-            type="text"
-            placeholder="Your full name"
+            type='text'
+            placeholder='Your full name'
             value={name}
             onChange={(event) => setName(event.target.value)}
             disabled={loading}
@@ -151,14 +143,11 @@ function Signup() {
 
           {nameError && <p>{nameError}</p>}
 
-
-          <label className="input-label">
-            Email Address
-          </label>
+          <label className='input-label'>Email Address</label>
 
           <input
-            type="email"
-            placeholder="you@example.com"
+            type='email'
+            placeholder='you@example.com'
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             disabled={loading}
@@ -166,14 +155,11 @@ function Signup() {
 
           {emailError && <p>{emailError}</p>}
 
-
-          <label className="input-label">
-            Password
-          </label>
+          <label className='input-label'>Password</label>
 
           <input
-            type="password"
-            placeholder="Create a password"
+            type='password'
+            placeholder='Create a password'
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             disabled={loading}
@@ -181,21 +167,13 @@ function Signup() {
 
           {passwordError && <p>{passwordError}</p>}
 
-
-          <button
-            type="submit"
-            className="primary-btn"
-            disabled={loading}
-          >
+          <button type='submit' className='primary-btn' disabled={loading}>
             {loading ? "Creating Account..." : "Sign Up"}
           </button>
 
           {error && <p>{error}</p>}
 
-          <p className="auth-footer-text">
-            Already have an account?
-          </p>
-
+          <p className='auth-footer-text'>Already have an account?</p>
         </form>
       </div>
     </div>
@@ -203,7 +181,6 @@ function Signup() {
 }
 
 export default Signup;
-
 
 //
 //zod give us issues is an array object of errors if exist.

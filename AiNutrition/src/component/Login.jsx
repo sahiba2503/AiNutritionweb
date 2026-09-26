@@ -36,7 +36,6 @@ function Login() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  
   function handleLogin(event) {
     event.preventDefault();
 
@@ -48,15 +47,14 @@ function Login() {
     setEmailError("");
     setPasswordError("");
 
-    
-    const result =loginSchema .safeParse({
+    const result = loginSchema.safeParse({
       email: email,
       password: password,
     });
 
-    if(!result.success){
-       result.error.issues.forEach((issue) => {
-          if (issue.path[0] === "email") {
+    if (!result.success) {
+      result.error.issues.forEach((issue) => {
+        if (issue.path[0] === "email") {
           setEmailError(issue.message);
         }
 
@@ -96,7 +94,7 @@ function Login() {
         alert(" Something wrong please try again");
       })
       .finally(() => {
-         setLoading(false);
+        setLoading(false);
       });
   }
 

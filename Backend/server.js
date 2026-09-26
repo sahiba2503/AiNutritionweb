@@ -31,10 +31,10 @@ const foodSchema = z.object({
   food: z.string().min(1, "Food is required"),
 });
 
-const loginSchema = z.object({
-  email: z.string().min(1, "Email is required"),
-  password: z.string().min(1, "Password is required"),
-});
+// const loginSchema = z.object({
+//   email: z.string().min(1, "Email is required"),
+//   password: z.string().min(1, "Password is required"),
+// });
 
 const createAccountSchema = z.object({
   name: z
@@ -45,7 +45,10 @@ const createAccountSchema = z.object({
   email: z
     .string()
     .min(1, "Email is required")
-    .includes("@gmail.com", "Email must contain @gmail.com"),
+    .refine(
+      (value) => value.endsWith("@gmail.com"),
+      "Please enter a valid Gmail address",
+    ),
 
   password: z
     .string()
@@ -57,6 +60,25 @@ const createAccountSchema = z.object({
     .regex(/[^A-Za-z0-9]/, "Password must contain one special character"),
 });
 //min(1,"food is require")//it should not be empty at least one character present.
+
+const loginSchema = z.object({
+   email: z
+    .string()
+    .min(1, "Email is required")
+    .refine(
+      (value) => value.endsWith("@gmail.com"),
+      "Please enter a valid Gmail address",
+    ),
+
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .max(12, "Password must not be more than 12 characters")
+    .regex(/[A-Z]/, "Password must contain one capital letter")
+    .regex(/[a-z]/, "Password must contain one small letter")
+    .regex(/[0-9]/, "Password must contain one number")
+    .regex(/[^A-Za-z0-9]/, "Password must contain one special character"),
+});
 
 app.post("/createAccount", (req, res) => {
   const result = createAccountSchema.safeParse(req.body);
@@ -100,7 +122,7 @@ app.post("/loginAccount", (req, res) => {
   if (!result.success) {
     return res.json({
       success: false,
-      message: "Email and password are required",
+      errors: result.error.issues[0].message,
     });
   }
 
@@ -131,41 +153,6 @@ app.post("/loginAccount", (req, res) => {
 });
 //
 
-app.post("/loginAccount", (req, res) => {
-  const result = loginSchema.safeParse(req.body);
-
-  if (!result.success) {
-    return res.json({
-      success: false,
-      message: "Email and password are required",
-    });
-  }
-
-  const { email, password } = result.data;
-
-  if (email === users.email && password === users.password) {
-    res.json({
-      success: true,
-      message: "You logged in successfully",
-    });
-  } else if (email === users.email && password !== users.password) {
-    res.json({
-      success: false,
-      message: "Enter correct password",
-    });
-  } else if (email !== users.email && password === users.password) {
-    res.json({
-      success: false,
-      message: "Enter correct email",
-    });
-  } else {
-    res.json({
-      success: false,
-      message:
-        "Server could not match. Please enter correct email and password",
-    });
-  }
-});
 //
 
 app.post("/changePass", (req, res) => {
@@ -227,15 +214,7 @@ app.get("/usersName", (req, res) => {
 app.post("/foodNutritions", (req, res) => {
   //“safeParse-Is data ko safely check karo aur batao ki data correct hai ya nahi.”
   let result = foodSchema.safeParse(req.body);
-
-  //zod can be return like this data
-  //{
-  //success: true,
-  //data: {
-  //food: "Apple"
-  //}
-  //}
-
+  
   //success Zod automatically gives it to you when you use safeParse(). You do not create success yourself.
   if (!result.success) {
     return res.json({

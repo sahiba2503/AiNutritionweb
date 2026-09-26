@@ -1,7 +1,6 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
-
 
 function ForgotPassword() {
   const navigate = useNavigate();
@@ -214,35 +213,43 @@ function ForgotPassword() {
       });
   }
   return (
-    <div className="centered-wrapper">
-      <div className="small-card">
-        <div className="small-card-icon">🔑</div>
-        <p className="auth-heading">Forgot password?</p>
-        <p className="auth-subheading">No worries, we'll send reset instructions to your email.</p>
+    <div className='centered-wrapper'>
+      <div className='small-card'>
+        <div className='small-card-icon'>🔑</div>
+        <p className='auth-heading'>Forgot password?</p>
+        <p className='auth-subheading'>
+          No worries, we'll send reset instructions to your email.
+        </p>
 
         <form onSubmit={handleUpdate}>
-          <label className="input-label">Email</label>
-          <input type="email" placeholder="you@example.com" value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              disabled={loading} />
+          <label className='input-label'>Email</label>
+          <input
+            type='email'
+            placeholder='you@example.com'
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            disabled={loading}
+          />
 
           {emailError && <p>{emailError}</p>}
-         
-            <input
-              type='password'
-              placeholder='Enter your new password'
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              disabled={loading}
-            />
-             {passwordError && <p>{passwordError}</p>}
-          <button type="submit" className="primary-btn" disabled={loading}>
+
+          <input
+            type='password'
+            placeholder='Enter your new password'
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            disabled={loading}
+          />
+          {passwordError && <p>{passwordError}</p>}
+          <button type='submit' className='primary-btn' disabled={loading}>
             {loading ? "Sending..." : "Send Reset Link"}
           </button>
           {error && <p>{error}</p>}
         </form>
 
-        <p onClick={()=>navigate("/")} className="link-text back-link">← Back to log in</p>
+        <p onClick={() => navigate("/")} className='link-text back-link'>
+          ← Back to log in
+        </p>
       </div>
     </div>
   );

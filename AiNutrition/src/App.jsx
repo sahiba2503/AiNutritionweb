@@ -1,5 +1,3 @@
-
-
 import { Routes, Route } from "react-router-dom";
 import Layout from "./component/Layout";
 import Login from "./component/Login";
@@ -21,14 +19,14 @@ function App() {
         <Route path='/Signup' element={<Signup />} />
         <Route path='/ForgotPassword' element={<ForgotPassword />} />
         <Route path='/Logout' element={<Logout />} />
-        <Route path='/Layout' element={<Layout />} >
+        <Route path='/Layout' element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path='/Layout/Dashboard' element={<Dashboard />} />
           <Route path='/Layout/AddFood' element={<AddFood />} />
           <Route path='/Layout/Recommendations' element={<Recommendations />} />
           <Route path='/Layout/Profile' element={<Profile />} />
-          <Route path='/Layout/Logout' element={<Logout/>} />
-          </Route>
+          <Route path='/Layout/Logout' element={<Logout />} />
+        </Route>
       </Routes>
     </div>
   );

@@ -1,6 +1,28 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
+import {z} from "zod";
+
+const forgetSchema = z.object({
+  email:z 
+  .string()
+  .trim()
+   .email("Please enter a valid email")
+  .refine(
+    (value)=>value.endsWith("@gmail.com"),
+    "plese enter valid gmail"),
+
+  password:z 
+  .string()
+  .trim()
+  .min(8,"password length should be atleast 8 character")
+  .max(8,"password length should be atleast 8 character")
+      .regex(/[A-Z]/, "Password must contain one capital letter")
+    .regex(/[a-z]/, "Password must contain one small letter")
+    .regex(/[0-9]/, "Password must contain one number")
+    .regex(/[^A-Za-z0-9]/, "Password must contain one special character")
+    .regex(/^\S+$/, "Password should not contain space"),
+})
 
 function ForgotPassword() {
   const navigate = useNavigate();
@@ -14,173 +36,35 @@ function ForgotPassword() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  function checkEmail() {
-    let parts = email.trim().split("@");
 
-    if (parts.length !== 2) {
-      setEmailError("Please enter a valid email");
-      return false;
-    }
+   function handleUpdate(event) {
+     event.preventDefault();
 
-    let username = parts[0];
-    let domain = parts[1];
+     if (loading) {
+       return;
+     }
 
-    if (username.length < 3) {
-      setEmailError("Email username should be at least 3 characters");
-      return false;
-    }
-
-    if (
-      username.includes("@") ||
-      username.includes("#") ||
-      username.includes("$") ||
-      username.includes("%") ||
-      username.includes("!") ||
-      username.includes("&") ||
-      username.includes("?") ||
-      username.includes("+") ||
-      username.includes("-") ||
-      username.includes("..") ||
-      username.includes("_") ||
-      username.includes(":") ||
-      username.includes(";") ||
-      username.includes("^") ||
-      username.includes("/") ||
-      username.includes(" ") ||
-      username.includes(",") ||
-      username.includes("'") ||
-      username.includes("(") ||
-      username.includes(")") ||
-      username.includes("{") ||
-      username.includes("}") ||
-      username.includes("[") ||
-      username.includes(">") ||
-      username.includes("<") ||
-      username.includes("]") ||
-      username.includes("|") ||
-      username.includes("`") ||
-      username.includes("~")
-    ) {
-      setEmailError("Email contains invalid character");
-      return false;
-    }
-
-    if (domain !== "gmail.com") {
-      setEmailError("Please enter a valid Gmail address");
-      return false;
-    }
-
-    setEmailError("");
-    return true;
-  }
-
-  function checkPassword() {
-    let userPassword = password.trim();
-    if (userPassword.length < 8 || userPassword.length > 12) {
-      setPasswordError("user's Password must be 8 to 12 characters");
-      return false;
-    }
-
-    if (userPassword === userPassword.toLowerCase()) {
-      setPasswordError("user's Password must contain one capital letter.");
-      return false;
-    }
-
-    if (userPassword === userPassword.toUpperCase()) {
-      setPasswordError("user's Password must contain one small letter.");
-      return false;
-    }
-    if (userPassword.includes(" ")) {
-      setPasswordError("user's Password should not contain space.");
-      return false;
-    }
-
-    if (
-      !(
-        userPassword.includes("!") ||
-        userPassword.includes("@") ||
-        userPassword.includes("#") ||
-        userPassword.includes("$") ||
-        userPassword.includes("%") ||
-        userPassword.includes("^") ||
-        userPassword.includes("&") ||
-        userPassword.includes("*") ||
-        userPassword.includes("(") ||
-        userPassword.includes(")") ||
-        userPassword.includes(">") ||
-        userPassword.includes("+") ||
-        userPassword.includes("{") ||
-        userPassword.includes("}") ||
-        userPassword.includes("[") ||
-        userPassword.includes("]") ||
-        userPassword.includes("|") ||
-        userPassword.includes("'") ||
-        userPassword.includes(";") ||
-        userPassword.includes(":") ||
-        userPassword.includes("/") ||
-        userPassword.includes("?") ||
-        userPassword.includes(">") ||
-        userPassword.includes("<") ||
-        userPassword.includes(".") ||
-        userPassword.includes("`") ||
-        userPassword.includes("~") ||
-        userPassword.includes(",")
-      )
-    ) {
-      setPasswordError("user's Password must contain one special character");
-      return false;
-    }
-
-    if (
-      !(
-        userPassword.includes("0") ||
-        userPassword.includes("1") ||
-        userPassword.includes("2") ||
-        userPassword.includes("3") ||
-        userPassword.includes("4") ||
-        userPassword.includes("5") ||
-        userPassword.includes("6") ||
-        userPassword.includes("7") ||
-        userPassword.includes("8") ||
-        userPassword.includes("9")
-      )
-    ) {
-      setPasswordError("Password must contain one number");
-      return false;
-    }
-
-    setPasswordError("");
-    return true;
-  }
-
-  function handleUpdate(event) {
-    event.preventDefault();
-
-    if (loading) {
-      return;
-    }
-
-    setError("");
-    setEmailError("");
+     setError("");
+     setEmailError("");
     setPasswordError("");
 
-    if (!email.trim() || !password) {
-      setError("Please fill all fields");
+    const result = forgetSchema.safeParse({
+      email:email,
+      password:password,
+    });
+    if(!result.success){
+      result.error.issues.forEach((issue)=>{
+        if(issue.path[0] === "email"){
+          setEmailError(issue.message);
+        }
+        if(issue.path[0] === "password"){
+          setPasswordError(issue.message);
+        }
+      });
       return;
     }
 
-    let emailValid = checkEmail();
-
-    if (!emailValid) {
-      return;
-    }
-
-    let passwordValid = checkPassword();
-
-    if (!passwordValid) {
-      return;
-    }
-
+  
     setLoading(true);
 
     fetch("http://localhost:3000/changePassword", {

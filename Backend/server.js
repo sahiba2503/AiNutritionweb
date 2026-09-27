@@ -31,11 +31,6 @@ const foodSchema = z.object({
   food: z.string().min(1, "Food is required"),
 });
 
-// const loginSchema = z.object({
-//   email: z.string().min(1, "Email is required"),
-//   password: z.string().min(1, "Password is required"),
-// });
-
 const createAccountSchema = z.object({
   name: z
     .string()
@@ -59,10 +54,8 @@ const createAccountSchema = z.object({
     .regex(/[0-9]/, "Password must contain one number")
     .regex(/[^A-Za-z0-9]/, "Password must contain one special character"),
 });
-//min(1,"food is require")//it should not be empty at least one character present.
-
 const loginSchema = z.object({
-   email: z
+  email: z
     .string()
     .min(1, "Email is required")
     .refine(
@@ -214,7 +207,7 @@ app.get("/usersName", (req, res) => {
 app.post("/foodNutritions", (req, res) => {
   //“safeParse-Is data ko safely check karo aur batao ki data correct hai ya nahi.”
   let result = foodSchema.safeParse(req.body);
-  
+
   //success Zod automatically gives it to you when you use safeParse(). You do not create success yourself.
   if (!result.success) {
     return res.json({

@@ -1,7 +1,18 @@
 ////second aproach using object//////
+//.env is a file where we keep values that we don't want to write directly in our code.
+
+//dotenv is an npm package/library.Its job is to:Read the values from the .env file and make them available in your Node.js application.
+
 const express = require("express");
 const cors = require("cors");
 const { z } = require("zod");
+
+require("dotenv").config();
+//.config() tells dotenv:"Read the .env file and load its values into the environment."
+
+console.log(process.env.NAME);
+//The environment values available to the current Node.js process.
+console.log(process.env.AGE);
 
 const app = express();
 
@@ -30,7 +41,7 @@ let users = {
 const foodSchema = z.object({
   food: z.string().min(1, "Food is required"),
 });
-
+///^[A-Za-z ]+$/  The whole text must contain only letters and spaces.
 const createAccountSchema = z.object({
   name: z
     .string()
@@ -118,7 +129,7 @@ app.post("/loginAccount", (req, res) => {
       errors: result.error.issues[0].message,
     });
   }
-
+  //{  success: true,  data: {    name: "Sahiba",    age: 25  }}
   const { email, password } = result.data;
 
   if (email === users.email && password === users.password) {
@@ -144,9 +155,6 @@ app.post("/loginAccount", (req, res) => {
     });
   }
 });
-//
-
-//
 
 app.post("/changePass", (req, res) => {
   const { email, password } = req.body;

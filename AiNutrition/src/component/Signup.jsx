@@ -182,9 +182,6 @@ function Signup() {
 
 export default Signup;
 
-//
-//zod give us issues is an array object of errors if exist.
-//Name → empty ,Email → wrong ,Password → too short ,Zod may give you 3 errors.
 //result={ success:"",error:issues=[,,,]}
 // result.error.issues[
 //   {

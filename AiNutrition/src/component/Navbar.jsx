@@ -35,10 +35,6 @@ function Navbar() {
           </div>
         </div>
 
-        {/* Navigation */}
-
-        {/* Auth buttons */}
-
         <button className='dyp-nav__user' onClick={() => Navigate("/")}>
           Logout{" "}
           <span className='dyp-nav__avatar'>

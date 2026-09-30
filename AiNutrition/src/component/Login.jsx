@@ -65,9 +65,8 @@ function Login() {
 
       return;
     }
-    //if email and password are valid,
+    
     setLoading(true);
-    //send the post request ,
     fetch("http://localhost:3000/loginAccount", {
       method: "POST",
       headers: {
@@ -136,7 +135,7 @@ function Login() {
           />
           <p> {passwordError ? passwordError : ""}</p>
           <div className='auth-row-between'>
-            {/* <label className="checkbox-label"><input type="checkbox" /> Remember me</label> */}
+    
           </div>
 
           <button

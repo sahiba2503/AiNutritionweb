@@ -1,18 +1,16 @@
-
 const express = require("express");
 const cors = require("cors");
 const { z } = require("zod");
 
 require("dotenv").config();
 
-
 console.log(process.env.NAME);
-
 console.log(process.env.AGE);
 
 const app = express();
 
 app.use(express.json());
+
 app.use(cors());
 
 const foodData = [
@@ -34,51 +32,12 @@ let users = {
   password: "",
 };
 
-const foodSchema = z.object({
-  food: z.string().min(1, "Food is required"),
-});
+const {
+  foodSchema,
+  createAccountSchema,
+  loginSchema,
+} = require("./schemas/schema"); 
 
-const createAccountSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .regex(/^[A-Za-z ]+$/, "Name can contain only letters and spaces"),
-
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .refine(
-      (value) => value.endsWith("@gmail.com"),
-      "Please enter a valid Gmail address",
-    ),
-
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters")
-    .max(12, "Password must not be more than 12 characters")
-    .regex(/[A-Z]/, "Password must contain one capital letter")
-    .regex(/[a-z]/, "Password must contain one small letter")
-    .regex(/[0-9]/, "Password must contain one number")
-    .regex(/[^A-Za-z0-9]/, "Password must contain one special character"),
-});
-const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .refine(
-      (value) => value.endsWith("@gmail.com"),
-      "Please enter a valid Gmail address",
-    ),
-
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters")
-    .max(12, "Password must not be more than 12 characters")
-    .regex(/[A-Z]/, "Password must contain one capital letter")
-    .regex(/[a-z]/, "Password must contain one small letter")
-    .regex(/[0-9]/, "Password must contain one number")
-    .regex(/[^A-Za-z0-9]/, "Password must contain one special character"),
-});
 
 app.post("/createAccount", (req, res) => {
   const result = createAccountSchema.safeParse(req.body);
@@ -125,7 +84,7 @@ app.post("/loginAccount", (req, res) => {
       errors: result.error.issues[0].message,
     });
   }
- 
+
   const { email, password } = result.data;
 
   if (email === users.email && password === users.password) {
@@ -209,9 +168,8 @@ app.get("/usersName", (req, res) => {
 });
 
 app.post("/foodNutritions", (req, res) => {
-
   let result = foodSchema.safeParse(req.body);
-  
+
   if (!result.success) {
     return res.json({
       success: false,
@@ -248,4 +206,4 @@ app.listen(3000, () => {
 //The environment values available to the current Node.js process.
 
 //“safeParse-Is data ko safely check karo aur batao ki data correct hai ya nahi.”
-  //success Zod automatically gives it to you when you use safeParse(). You do not create success yourself.
+//success Zod automatically gives it to you when you use safeParse(). You do not create success yourself.

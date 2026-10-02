@@ -1,28 +1,7 @@
 import { useState } from "react";
 import "./Auth.css";
 import { useNavigate } from "react-router-dom";
-import { z } from "zod";
-
-const loginSchema = z.object({
-  email: z
-    .string()
-    .trim()
-    .email("Please enter a valid email")
-    .refine(
-      (value) => value.endsWith("@gmail.com"),
-      "Please enter a valid Gmail address",
-    ),
-
-  password: z
-    .string()
-    .min(8, "Password must be 8 to 12 characters")
-    .max(12, "Password must be 8 to 12 characters")
-    .regex(/[A-Z]/, "Password must contain one capital letter")
-    .regex(/[a-z]/, "Password must contain one small letter")
-    .regex(/[0-9]/, "Password must contain one number")
-    .regex(/[^A-Za-z0-9]/, "Password must contain one special character")
-    .regex(/^\S+$/, "Password should not contain space"),
-});
+import { loginSchema } from "../dataSchemas/schema";
 
 function Login() {
   const navigate = useNavigate();
@@ -65,7 +44,7 @@ function Login() {
 
       return;
     }
-    
+
     setLoading(true);
     fetch("http://localhost:3000/loginAccount", {
       method: "POST",
@@ -134,9 +113,7 @@ function Login() {
             disabled={loading}
           />
           <p> {passwordError ? passwordError : ""}</p>
-          <div className='auth-row-between'>
-    
-          </div>
+          <div className='auth-row-between'></div>
 
           <button
             className='primary-btn'

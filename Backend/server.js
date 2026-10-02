@@ -1,6 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const { z } = require("zod");
+const {
+  foodSchema,
+  createAccountSchema,
+  loginSchema,
+} = require("./schemas/schema"); 
 
 require("dotenv").config();
 
@@ -32,11 +37,7 @@ let users = {
   password: "",
 };
 
-const {
-  foodSchema,
-  createAccountSchema,
-  loginSchema,
-} = require("./schemas/schema"); 
+
 
 
 app.post("/createAccount", (req, res) => {

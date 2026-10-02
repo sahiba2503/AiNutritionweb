@@ -1,5 +1,5 @@
 
-import {z} from "zod";
+const {z} = require("zod");
 const foodSchema = z.object({
   food: z.string().min(1, "Food is required"),
 });
@@ -46,4 +46,8 @@ const loginSchema = z.object({
     .regex(/[^A-Za-z0-9]/, "Password must contain one special character"),
 });
 
-module.exports = { foodSchema , createAccountSchema, loginSchema };
+module.exports = {
+   createAccountSchema,
+    loginSchema,
+
+};

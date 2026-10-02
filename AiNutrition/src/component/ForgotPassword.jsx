@@ -1,28 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
-import {z} from "zod";
-
-const forgetSchema = z.object({
-  email:z 
-  .string()
-  .trim()
-   .email("Please enter a valid email")
-  .refine(
-    (value)=>value.endsWith("@gmail.com"),
-    "plese enter valid gmail"),
-
-  password:z 
-  .string()
-  .trim()
-  .min(8,"password length should be atleast 8 character")
-  .max(8,"password length should be atleast 8 character")
-      .regex(/[A-Z]/, "Password must contain one capital letter")
-    .regex(/[a-z]/, "Password must contain one small letter")
-    .regex(/[0-9]/, "Password must contain one number")
-    .regex(/[^A-Za-z0-9]/, "Password must contain one special character")
-    .regex(/^\S+$/, "Password should not contain space"),
-})
+import { forgetSchema } from "../dataSchemas/schema";
 
 function ForgotPassword() {
   const navigate = useNavigate();
@@ -36,35 +15,33 @@ function ForgotPassword() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  function handleUpdate(event) {
+    event.preventDefault();
 
-   function handleUpdate(event) {
-     event.preventDefault();
+    if (loading) {
+      return;
+    }
 
-     if (loading) {
-       return;
-     }
-
-     setError("");
-     setEmailError("");
+    setError("");
+    setEmailError("");
     setPasswordError("");
 
     const result = forgetSchema.safeParse({
-      email:email,
-      password:password,
+      email: email,
+      password: password,
     });
-    if(!result.success){
-      result.error.issues.forEach((issue)=>{
-        if(issue.path[0] === "email"){
+    if (!result.success) {
+      result.error.issues.forEach((issue) => {
+        if (issue.path[0] === "email") {
           setEmailError(issue.message);
         }
-        if(issue.path[0] === "password"){
+        if (issue.path[0] === "password") {
           setPasswordError(issue.message);
         }
       });
       return;
     }
 
-  
     setLoading(true);
 
     fetch("http://localhost:3000/changePassword", {

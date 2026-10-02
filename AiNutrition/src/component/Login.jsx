@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Auth.css";
 import { useNavigate } from "react-router-dom";
-import { loginSchema } from "../dataSchemas/schema";
+import { loginSchema } from "../../dataSchemas/schema";
 
 function Login() {
   const navigate = useNavigate();

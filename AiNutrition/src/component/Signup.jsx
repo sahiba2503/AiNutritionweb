@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signupSchema } from "../dataSchemas/schema";
+import { signupSchema } from "../../dataSchemas/schema";
 
 import "./Auth.css";
 

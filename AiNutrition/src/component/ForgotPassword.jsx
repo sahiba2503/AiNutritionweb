@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
-import { forgetSchema } from "../dataSchemas/schema";
+import { forgetSchema } from "../../dataSchemas/schema";
 
 function ForgotPassword() {
   const navigate = useNavigate();

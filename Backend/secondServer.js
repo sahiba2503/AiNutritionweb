@@ -140,3 +140,43 @@
 // app.listen(3000, () => {
 //   console.log("server is running on 3000 port");
 // });
+
+
+/// orld way to find nutritions value of the food
+// app.post("/foodNutritions", (req, res) => {
+//   let result = foodSchema.safeParse(req.body);
+
+//   if (!result.success) {
+//     return res.json({
+//       success: false,
+//       message: "Invalid request format",
+//     });
+//   }
+
+//   let Food = result.data.food;
+//   let foodNut = foodData.find((value) => {
+//     return value.name === Food;
+//   });
+
+//   if (foodNut) {
+//     res.json({
+//       success: true,
+//       calorie: foodNut.calorie,
+//       protein: foodNut.protein,
+//       vitamin: foodNut.vitamin,
+//     });
+//   } else {
+//     res.json({
+//       success: false,
+//       message: "Food not found",
+//     });
+//   }
+// });
+
+//.env is a file where we keep values that we don't want to write directly in our code.
+//dotenv is an npm package/library.Its job is to:Read the values from the .env file and make them available in your Node.js application.
+//.config() tells dotenv:"Read the .env file and load its values into the environment."
+//The environment values available to the current Node.js process.
+
+//“safeParse-Is data ko safely check karo aur batao ki data correct hai ya nahi.”
+//success Zod automatically gives it to you when you use safeParse(). You do not create success yourself.

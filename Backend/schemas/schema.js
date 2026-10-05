@@ -47,6 +47,7 @@ const loginSchema = z.object({
 });
 
 module.exports = {
+  foodSchema,
    createAccountSchema,
     loginSchema,
 

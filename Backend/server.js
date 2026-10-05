@@ -7,7 +7,7 @@ const {
   loginSchema,
 } = require("./schemas/schema"); 
 
-const foodPrompt = require("./prompts/food.prompts");
+const foodPrompt = require("./prompts/food.prompts.js");
 
 require("dotenv").config();
 
@@ -171,49 +171,7 @@ app.get("/usersName", (req, res) => {
 });
 
 
-// app.post("/foodNutritions", (req, res) => {
 
-//   let result = foodSchema.safeParse(req.body);
-
-//   if (!result.success) {
-
-//     return res.json({
-//       success: false,
-//       message: "Invalid request format",
-//     });
-
-//   }
-
-//   let Food = result.data.food;
-//   //apple
-
-//   let finalPrompt = foodPrompt + Food;
-//   //You are a nutrition assistant.Analyze the food provided by the user.Give:- Calories- Protein- Vitamins- Minerals Food: apple
-//     console.log(finalPrompt);
-
-//   let foodNut = foodData.find((value) => {
-//     return value.name === Food;
-//   });
-
-//   if (foodNut) {
-
-//     res.json({
-//       success: true,
-//       calorie: foodNut.calorie,
-//       protein: foodNut.protein,
-//       vitamin: foodNut.vitamin,
-//     });
-
-//   } else {
-
-//     res.json({
-//       success: false,
-//       message: "Food not found",
-//     });
-
-//   }
-
-// });
 app.post("/foodNutritions", (req, res) => {
 
   let result = foodSchema.safeParse(req.body);
@@ -230,7 +188,6 @@ app.post("/foodNutritions", (req, res) => {
   let Food = result.data.food;
 
   let finalPrompt = foodPrompt + Food;
-
   console.log(finalPrompt);
 
   let foodNut = foodData.find((value) => {
@@ -238,7 +195,6 @@ app.post("/foodNutritions", (req, res) => {
   });
 
   if (foodNut) {
-
     res.json({
       success: true,
       calorie: foodNut.calorie,
@@ -247,14 +203,11 @@ app.post("/foodNutritions", (req, res) => {
     });
 
   } else {
-
     res.json({
       success: false,
       message: "Food not found",
     });
-
   }
-
 });
 
 app.listen(3000, () => {

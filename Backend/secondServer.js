@@ -142,7 +142,7 @@
 // });
 
 
-/// orld way to find nutritions value of the food
+/// old way to find nutritions value of the food
 // app.post("/foodNutritions", (req, res) => {
 //   let result = foodSchema.safeParse(req.body);
 

@@ -8,57 +8,7 @@ function AddFood() {
 
   const [nutritionData, setNutritionData] = useState([]);
 
-  // function UsersFoodAnalysis(e) {
-  //   e.preventDefault();
-
-  //   let food = foodName.trim();
-
-  //   if (food) {
-  //     setLoad(true);
-  //     setFoodError("");
-
-  //     fetch("http://localhost:3000/foodNutritions", {
-  //       method: "POST",
-
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-
-  //       body: JSON.stringify({
-  //         food: food,
-  //       }),
-  //     })
-  //       .then((res) => {
-  //         return res.json();
-  //       })
-
-  //       .then((data) => {
-  //         if (data.success) {
-  //           let nutrition = {
-  //             food: food,
-  //             calorie: data.calorie,
-  //             protein: data.protein,
-  //             vitamin: data.vitamin,
-  //           };
-
-  //           setNutritionData([...nutritionData, nutrition]);
-  //         }
-  //       })
-
-  //       .catch((error) => {
-  //         alert("Please try again. Something went wrong.");
-  //         console.log(error);
-  //       })
-
-  //       .finally(() => {
-  //         setLoad(false);
-  //         setFoodName("");
-  //       });
-  //   } else {
-  //     setFoodError("Please enter food name");
-  //     setLoad(false);
-  //   }
-  // }
+  
   function UsersFoodAnalysis(e) {
   e.preventDefault();
 

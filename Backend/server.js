@@ -1,15 +1,17 @@
 const express = require("express");
-const cors = require("cors");
-const { z } = require("zod");
+const cors = require("cors"); //package /middleware library.
+const { z } = require("zod"); //validation library /package.
 const {
   foodSchema,
   createAccountSchema,
   loginSchema,
-} = require("./schemas/schema"); 
+} = require("./schemas/schema.js");
 
 const foodPrompt = require("./prompts/food.prompts.js");
 
-require("dotenv").config();
+const foodData = require("./food/foodNutritions.js");
+
+require("dotenv").config(); //Package
 
 console.log(process.env.NAME);
 console.log(process.env.AGE);
@@ -20,27 +22,11 @@ app.use(express.json());
 
 app.use(cors());
 
-const foodData = [
-  { name: "apple", calorie: 95, protein: 0.5, vitamin: 25 },
-  { name: "banana", calorie: 105, protein: 1.3, vitamin: 27 },
-  { name: "rice (1 cup, cooked)", calorie: 205, protein: 4.3, vitamin: 45 },
-  { name: "Chicken", calorie: 165, protein: 31, vitamin: 0 },
-  { name: "egg", calorie: 78, protein: 6.3, vitamin: 0.6 },
-  { name: "cofee", calorie: 280, protein: 39, vitamin: 0 },
-  { name: "tea", calorie: 55, protein: 3.7, vitamin: 11 },
-  { name: "juice", calorie: 100, protein: 17, vitamin: 6 },
-  { name: "oats", calorie: 158, protein: 6, vitamin: 27 },
-  { name: "water", calorie: 230, protein: 18, vitamin: 40 },
-];
-
 let users = {
   name: "",
   email: "",
   password: "",
 };
-
-
-
 
 app.post("/createAccount", (req, res) => {
   const result = createAccountSchema.safeParse(req.body);
@@ -170,19 +156,14 @@ app.get("/usersName", (req, res) => {
   }
 });
 
-
-
 app.post("/foodNutritions", (req, res) => {
-
   let result = foodSchema.safeParse(req.body);
 
   if (!result.success) {
-
     return res.json({
       success: false,
       message: "Invalid request format",
     });
-
   }
 
   let Food = result.data.food;
@@ -201,7 +182,6 @@ app.post("/foodNutritions", (req, res) => {
       protein: foodNut.protein,
       vitamin: foodNut.vitamin,
     });
-
   } else {
     res.json({
       success: false,
@@ -213,4 +193,10 @@ app.post("/foodNutritions", (req, res) => {
 app.listen(3000, () => {
   console.log("server is running on 3000 port");
 });
+//bcrypt  ---   Package/library
+//Library = ready-made code that helps you perform a specific task in your program.
+//Validation library = a ready-made tool that helps you check data.
+//Framework = a ready-made structure that helps you build an application.
 
+//A package is some ready-made code that someone has created so you don't have to write everything yourself.
+//Middleware is a function that runs between the request and your final response.

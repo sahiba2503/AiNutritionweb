@@ -1,6 +1,6 @@
 const express = require("express");
-const cors = require("cors"); //package /middleware library.
-const { z } = require("zod"); //validation library /package.
+const cors = require("cors"); 
+const { z } = require("zod"); 
 const {
   foodSchema,
   createAccountSchema,
@@ -11,7 +11,7 @@ const foodPrompt = require("./prompts/food.prompts.js");
 
 const foodData = require("./food/foodNutritions.js");
 
-require("dotenv").config(); //Package
+require("dotenv").config(); 
 
 console.log(process.env.NAME);
 console.log(process.env.AGE);
@@ -193,10 +193,4 @@ app.post("/foodNutritions", (req, res) => {
 app.listen(3000, () => {
   console.log("server is running on 3000 port");
 });
-//bcrypt  ---   Package/library
-//Library = ready-made code that helps you perform a specific task in your program.
-//Validation library = a ready-made tool that helps you check data.
-//Framework = a ready-made structure that helps you build an application.
 
-//A package is some ready-made code that someone has created so you don't have to write everything yourself.
-//Middleware is a function that runs between the request and your final response.

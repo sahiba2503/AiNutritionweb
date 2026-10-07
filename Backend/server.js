@@ -1,6 +1,6 @@
 const express = require("express");
-const cors = require("cors"); 
-const { z } = require("zod"); 
+const cors = require("cors"); //
+const { z } = require("zod");
 const {
   foodSchema,
   createAccountSchema,
@@ -11,7 +11,7 @@ const foodPrompt = require("./prompts/food.prompts.js");
 
 const foodData = require("./food/foodNutritions.js");
 
-require("dotenv").config(); 
+require("dotenv").config();
 
 console.log(process.env.NAME);
 console.log(process.env.AGE);
@@ -29,7 +29,7 @@ let users = {
 };
 
 app.post("/createAccount", (req, res) => {
-  const result = createAccountSchema.safeParse(req.body);
+  const result = createAccountSchema.safeParse(req.body); //
 
   if (!result.success) {
     return res.json({
@@ -195,3 +195,4 @@ app.listen(3000, () => {
 });
 
 //in Express, app.use() is used to add middleware to your application.
+//safeParse() is used to check whether the data follows the Zod schema without throwing an error.

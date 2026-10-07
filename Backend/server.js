@@ -194,3 +194,4 @@ app.listen(3000, () => {
   console.log("server is running on 3000 port");
 });
 
+//in Express, app.use() is used to add middleware to your application.

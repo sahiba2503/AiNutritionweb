@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { signupSchema } from "../../dataSchemas/schema";
 
 import "./Auth.css";
+import SignupLeft from "./SignupLeft";
 
 function Signup() {
   const navigate = useNavigate();
@@ -87,16 +88,8 @@ function Signup() {
 
   return (
     <div className='auth-wrapper'>
-      <div className='auth-brand-panel'>
-        <div className='auth-logo'>🌿</div>
-
-        <p className='auth-brand-title'>NutriTrack</p>
-
-        <p className='auth-brand-text'>
-          Join thousands making smarter food choices every day.
-        </p>
-      </div>
-
+     
+    <SignupLeft />
       <div className='auth-form-panel'>
         <form className='auth-form' onSubmit={handleSignup}>
           <p className='auth-heading'>Create your account</p>
@@ -147,7 +140,7 @@ function Signup() {
 
           {error && <p>{error}</p>}
 
-          <p className='auth-footer-text'>Already have an account?</p>
+          <p className='auth-footer-text' onClick={()=>navigate("/")}>Already have an account?</p>
         </form>
       </div>
     </div>
@@ -156,19 +149,4 @@ function Signup() {
 
 export default Signup;
 
-//result={ success:"",error:issues=[,,,]}
-// result.error.issues[
-//   {
-//     path: ["name"],
-//     message: "Name is required"
-//   },
-//   {
-//     path: ["email"],
-//     message: "Invalid email"
-//   },
-//   {
-//     path: ["password"],
-//     message: "Password is too short"
-//   }
-// ]
-//
+

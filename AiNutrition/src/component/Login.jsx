@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Auth.css";
 import { useNavigate } from "react-router-dom";
 import { loginSchema } from "../../dataSchemas/schema";
+import LoginLeft from "./LoginLeft";
 
 function Login() {
   const navigate = useNavigate();
@@ -78,13 +79,7 @@ function Login() {
 
   return (
     <div className='auth-wrapper'>
-      <div className='auth-brand-panel'>
-        <div className='auth-logo'>🌿</div>
-        <p className='auth-brand-title'>NutriTrack</p>
-        <p className='auth-brand-text'>
-          Understand what's really in your food, one meal at a time.
-        </p>
-      </div>
+     <LoginLeft />
 
       <div className='auth-form-panel'>
         <form className='auth-form'>

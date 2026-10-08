@@ -221,7 +221,7 @@
 /* ===== Tablet ===== */
 @media (max-width: 64rem) {
   .auth-brand-panel {
-    height: 45vh;
+    height: 100vh;
     width: 35%;
   }
   .auth-form-panel {
@@ -237,7 +237,7 @@
   }
   .auth-brand-panel {
     width: 100%;
-    height: 45vh;
+    height: 100vh;
     padding: 6% 5%;
   }
   .auth-form-panel {

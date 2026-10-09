@@ -1,10 +1,11 @@
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useLocation } from "react-router-dom";
 import { useState } from "react";
 import "./Sidebar.css";
 
 function Sidebar() {
   const Navigate = useNavigate();
+  const location = useLocation();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -15,7 +16,7 @@ function Sidebar() {
     { key: "Profile", icon: "👤", path: "/Layout/Profile" },
 
      ];
-
+//useLocation() returns an object,
   return (
     <div className='sidnaveOuterContainer'>
       <button className='sidebarOpenBtn' onClick={() => setIsOpen(!isOpen)}>
@@ -27,8 +28,8 @@ function Sidebar() {
           {SECTIONS.map((s) => (
             <li
               key={s.key}
-              className='asideListItem'
               onClick={() => Navigate(s.path)}
+              className={location.pathname === s.path ? "activelink" : "asideListItem"}
             >
               <span>{s.icon}</span>
               <p>{s.key}</p>

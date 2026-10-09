@@ -33,7 +33,7 @@ function Dashboard() {
           logout
         </span>
         <div className='avatar-chip'>
-          <span className='avatar-circle'>{firstCharName}</span>
+          <span className='avatar-circle' onClick={()=>Navigate("/Layout/Profile")}>{firstCharName}</span>
           <span></span>
         </div>
       </div>

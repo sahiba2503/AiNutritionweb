@@ -5,7 +5,7 @@
   flex-direction: row;
 }
 
-.layout > .page {
+.layout>.page {
   flex: 1;
   min-width: 0;
 }

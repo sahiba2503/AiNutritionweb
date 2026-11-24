@@ -79,7 +79,7 @@ function Login() {
 
   return (
     <div className='auth-wrapper'>
-     <LoginLeft />
+      <LoginLeft />
 
       <div className='auth-form-panel'>
         <form className='auth-form'>
